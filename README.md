@@ -34,6 +34,24 @@ js/calculators/          one file per unit's calculators
 js/practice/             one file per unit's randomized practice generators
 ```
 
+## Deploying on Coolify
+
+The repo includes a `Dockerfile` (nginx:alpine serving the static files) plus an `nginx.conf`, so Coolify can build and run it directly:
+
+1. In Coolify, create a new **Application** resource and point it at this repo/branch.
+2. Build pack: **Dockerfile** (auto-detected).
+3. Port: **80** (already `EXPOSE`d in the Dockerfile).
+4. No environment variables or persistent storage are needed — it's a static site.
+5. Deploy. Coolify will build the image and route your configured domain to port 80.
+
+To build/run it locally the same way Coolify would:
+
+```bash
+docker build -t chem101-hub .
+docker run -p 8080:80 chem101-hub
+# then visit http://localhost:8080
+```
+
 ## Note on course materials
 
 The original syllabus, learning outcomes, and formula sheet PDFs used to build this are **not** included in this repo (see `.gitignore`) — the syllabus states course materials are copyrighted and prohibits redistribution. All reference content here has been independently rewritten/condensed for study purposes.
